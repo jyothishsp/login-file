@@ -1,19 +1,18 @@
 var express=require('express')
 var app =express()
 var path=require('path')
+var bodyParser=require('body-parser');
+var urlencodedParser=bodyParser.urlencoded({ extended:false })
 
 app.get('/',function(req,res){
   console.log("Entering into the login page..");
   res.sendFile(path.join(__dirname+'/index.html'))
 })
-app.get('/login_process', function (req, res) {
-   response = {
-      mail:req.query.mail,
-      password:req.query.password
-   }
+app.post('/login_process',urlencodedParser,function (req, res) {
+
    console.log(res);
    //res.send(JSON.stringify(res));
-   if(req.query.mail=="demo@demo.com" && req.query.password=="12345678"){
+   if(req.body.mail=="demo@demo.com" && req.body.password=="12345678"){
      res.send("log in sucessfully done..");
    }
    else {
